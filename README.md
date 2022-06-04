@@ -24,9 +24,3 @@ yarn react-devtools
 expo install expo-dev-client
 adb shell input keyevent 82
 ```
-
-## Add scheme
-
-```bash
-npx uri-scheme add https
-```
