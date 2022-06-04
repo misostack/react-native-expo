@@ -2,13 +2,46 @@
 import "expo-dev-client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  TouchableHighlight,
+  Button,
+  Alert,
+} from "react-native";
+import { Asset } from "expo-asset";
 import Entypo from "@expo/vector-icons/Entypo";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 
+import { Images } from "./constants";
+
+// cache app images
+const assetImages = [Images.Logo, Images.StaticRandom];
+
+// cache images
+function cacheImages(images) {
+  return images.map((image) => {
+    if (typeof image === "string") {
+      return Image.prefetch(image);
+    } else {
+      return Asset.fromModule(image).downloadAsync();
+    }
+  });
+}
+
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
+
+  function _loadResourcesAsync() {
+    return Promise.all([...cacheImages(assetImages)]);
+  }
 
   useEffect(() => {
     async function prepare() {
@@ -19,7 +52,7 @@ export default function App() {
         await Font.loadAsync(Entypo.font);
         // Artificially delay for two seconds to simulate a slow loading
         // experience. Please remove this if you copy and paste the code!
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await _loadResourcesAsync();
       } catch (e) {
         console.warn(e);
       } finally {
@@ -48,12 +81,48 @@ export default function App() {
   console.log("ready 123");
 
   return (
-    <View
-      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-      onLayout={onLayoutRootView}
-    >
-      <Text>SplashScreen Demo 23! 👋</Text>
-      <Entypo name="rocket" size={30} />
-    </View>
+    <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
+      <TouchableHighlight>
+        <Text>SplashScreen Demo 23! 👋</Text>
+      </TouchableHighlight>
+      <TouchableWithoutFeedback onPress={() => console.log("image tab")}>
+        <Image source={Images.Logo} />
+      </TouchableWithoutFeedback>
+      <TouchableHighlight
+        onPress={() => {
+          console.log("image opacity");
+        }}
+      >
+        <Image
+          source={{ uri: Images.StaticRandom }}
+          style={styles.staticRandomImage}
+        />
+      </TouchableHighlight>
+      <TouchableNativeFeedback>
+        <View
+          style={{ width: 300, height: 70, backgroundColor: "blue" }}
+        ></View>
+      </TouchableNativeFeedback>
+      <Button
+        color="orange"
+        title="Submit"
+        onPress={() =>
+          Alert.alert("title", "press", [
+            { text: "Yes", onPress: () => "console.log('yes');" },
+            { text: "No", onPress: () => "console.log('no');" },
+          ])
+        }
+      />
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  staticRandomImage: {
+    width: 300,
+    height: 200,
+  },
+});
