@@ -14,6 +14,8 @@ import {
   TouchableHighlight,
   Button,
   Alert,
+  Platform,
+  StatusBar,
 } from "react-native";
 import { Asset } from "expo-asset";
 import Entypo from "@expo/vector-icons/Entypo";
@@ -104,8 +106,8 @@ export default function App() {
         ></View>
       </TouchableNativeFeedback>
       <Button
-        color="orange"
-        title="Submit"
+        title={"Submit" + StatusBar.currentHeight}
+        style={[{ backgroundColor: "green" }, { color: "white" }]}
         onPress={() =>
           Alert.alert("title", "press", [
             { text: "Yes", onPress: () => "console.log('yes');" },
@@ -120,6 +122,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   staticRandomImage: {
     width: 300,
