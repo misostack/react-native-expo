@@ -1,3 +1,6 @@
+// Debug tool
+import "expo-dev-client";
+
 import React, { useCallback, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import Entypo from "@expo/vector-icons/Entypo";
@@ -24,7 +27,7 @@ export default function App() {
         setAppIsReady(true);
       }
     }
-
+    console.log("first time");
     prepare();
   }, []);
 
@@ -42,6 +45,7 @@ export default function App() {
   if (!appIsReady) {
     return null;
   }
+  console.log("ready 123");
 
   return (
     <View
