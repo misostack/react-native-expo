@@ -16,13 +16,17 @@ import {
   Alert,
   Platform,
   StatusBar,
+  Dimensions,
 } from "react-native";
 import { Asset } from "expo-asset";
 import Entypo from "@expo/vector-icons/Entypo";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
-
 import { Images } from "./constants";
+import {
+  useDeviceOrientation,
+  useDimensions,
+} from "@react-native-community/hooks";
 
 // cache app images
 const assetImages = [Images.Logo, Images.StaticRandom];
@@ -40,6 +44,8 @@ function cacheImages(images) {
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
+  const [size, setSize] = useState(null);
+  const orientation = useDeviceOrientation();
 
   function _loadResourcesAsync() {
     return Promise.all([...cacheImages(assetImages)]);
@@ -64,6 +70,9 @@ export default function App() {
     }
     console.log("first time");
     prepare();
+    // on android , window < screen
+    // on ios , window === screen
+    setSize(Dimensions.get("screen"));
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
@@ -87,6 +96,8 @@ export default function App() {
       <TouchableHighlight>
         <Text>SplashScreen Demo 23! 👋</Text>
       </TouchableHighlight>
+      <Text>{JSON.stringify(size)}</Text>
+      <Text>{JSON.stringify(orientation)}</Text>
       <TouchableWithoutFeedback onPress={() => console.log("image tab")}>
         <Image source={Images.Logo} />
       </TouchableWithoutFeedback>
