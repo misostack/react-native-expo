@@ -27,7 +27,7 @@ yarn react-devtools
 ## Scheme
 
 ```bash
-npx uri-scheme add https
+npx uri-scheme add com.reactnativeexpo
 npx uri-scheme list
 ```
 

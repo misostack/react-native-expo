@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Text,
   View,
@@ -31,10 +31,19 @@ function Onboarding(props) {
 function AppStack(props) {
   const { navigation } = props;
 
+  useEffect(() => {
+    console.log('test 1');
+  });
+
+  useEffect(() => {
+    console.log('test 2');
+  }, []);
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
       <Button title="Go to Example" onPress={() => navigation.navigate('Example')} />
+      <Button title="Go Back" onPress={() => navigation.goBack()} />
     </View>
   );
 }
