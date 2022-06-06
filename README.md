@@ -45,7 +45,7 @@ yarn add @react-native-community/hooks
 ```
 
 ```js
-import { useDeviceOrientation } from "@react-native-community/hooks";
+import { useDeviceOrientation } from '@react-native-community/hooks';
 
 const orientation = useDeviceOrientation();
 ```
@@ -57,4 +57,22 @@ const orientation = useDeviceOrientation();
 ```bash
 expo install react-native-screens react-native-safe-area-context
 yarn add @react-navigation/native @react-navigation/native-stack
+```
+
+## Eslint
+
+```bash
+yarn add eslint -D
+yarn eslint --init
+yarn add -D eslint-plugin-react-native @react-native-community/eslint-config @react-native-community @babel/eslint-parser prettier
+```
+
+## Husky
+
+```bash
+yarn add husky -D
+yarn husky install
+# add this line to package.json scripts
+# "prepare": "husky install"
+yarn husky add .husky/pre-commit "yarn lint && yarn test"
 ```

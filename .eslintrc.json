@@ -1,0 +1,23 @@
+{
+  "env": {
+    "es2021": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended", "@react-native-community"],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "react-native"],
+  "rules": {
+    "semi": "off",
+    "no-undef": "error",
+    "no-unused-vars": "error",
+    "comma-dangle": "off",
+    "react-native/no-inline-styles": "off"
+  }
+}

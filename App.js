@@ -1,24 +1,17 @@
 // Debug tool
-import "expo-dev-client";
+import 'expo-dev-client';
 
-import React, { useCallback, useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import React, { useCallback, useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 
-import {
-  Image,
-  StyleSheet,
-  SafeAreaView,
-  Platform,
-  StatusBar,
-  Dimensions,
-} from "react-native";
-import { Asset } from "expo-asset";
-import Entypo from "@expo/vector-icons/Entypo";
-import * as SplashScreen from "expo-splash-screen";
-import * as Font from "expo-font";
-import { Images } from "./constants";
+import { Image, StyleSheet, SafeAreaView, Platform, StatusBar, Dimensions } from 'react-native';
+import { Asset } from 'expo-asset';
+import Entypo from '@expo/vector-icons/Entypo';
+import * as SplashScreen from 'expo-splash-screen';
+import * as Font from 'expo-font';
+import { Images } from './constants';
 
-import Screens from "./navigation/Screens";
+import Screens from './navigation/Screens';
 
 // cache app images
 const assetImages = [Images.Logo, Images.StaticRandom];
@@ -26,7 +19,7 @@ const assetImages = [Images.Logo, Images.StaticRandom];
 // cache images
 function cacheImages(images) {
   return images.map((image) => {
-    if (typeof image === "string") {
+    if (typeof image === 'string') {
       return Image.prefetch(image);
     } else {
       return Asset.fromModule(image).downloadAsync();
@@ -61,7 +54,7 @@ export default function App() {
     prepare();
     // on android , window < screen
     // on ios , window === screen
-    console.log(Dimensions.get("screen"));
+    console.log(Dimensions.get('screen'));
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
@@ -91,10 +84,10 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
   },
   staticRandomImage: {
     width: 300,
-    height: 200,
-  },
+    height: 200
+  }
 });

@@ -8,7 +8,9 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "devtools": "react-devtools"
+    "devtools": "react-devtools",
+    "lint": "eslint App.js navigation/*.js constants/*.js",
+    "test": "echo test"
   },
   "dependencies": {
     "@react-native-community/hooks": "^2.8.1",
@@ -28,7 +30,19 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/eslint-parser": "^7.18.2",
+    "@react-native-community/eslint-config": "^3.0.2",
+    "eslint": "^8.0.1",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-config-universe": "^11.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-native": "^4.0.0",
     "expo-dev-client": "~0.9.6",
+    "husky": "^8.0.1",
+    "prettier": "^2.6.2",
     "react-devtools": "^4.24.7",
     "uri-scheme": "^1.0.120"
   },

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Text,
   View,
@@ -5,75 +6,76 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableWithoutFeedback,
-  TouchableOpacity,
+  // TouchableOpacity,
   TouchableNativeFeedback,
   TouchableHighlight,
   Button,
   Alert,
-  StatusBar,
-} from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useDeviceOrientation } from "@react-native-community/hooks";
+  StatusBar
+} from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useDeviceOrientation } from '@react-native-community/hooks';
+import { Images } from '../constants';
 
 const Stack = createNativeStackNavigator();
 
-function Onboarding() {
+function Onboarding(props) {
+  const { navigation } = props;
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Onboarding Screen</Text>
+      <Button title="Go to Home" onPress={() => navigation.navigate('App')} />
     </View>
   );
 }
-function AppStack() {
+function AppStack(props) {
+  const { navigation } = props;
+
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
+      <Button title="Go to Example" onPress={() => navigation.navigate('Example')} />
     </View>
   );
 }
 
-function Example() {
+function Example(props) {
+  const { navigation } = props;
   const orientation = useDeviceOrientation();
   return (
     <View style={ExampleStyles.container}>
       <View style={{ flex: 4 }}>
         <SafeAreaView>
+          <Button title="Go to Example" onPress={() => navigation.goBack()} />
           <TouchableHighlight>
             <Text>SplashScreen Demo 23! 👋</Text>
           </TouchableHighlight>
-          <Text>{JSON.stringify(size)}</Text>
           <Text>{JSON.stringify(orientation)}</Text>
-          <TouchableWithoutFeedback onPress={() => console.log("image tab")}>
+          <TouchableWithoutFeedback onPress={() => console.log('image tab')}>
             <Image source={Images.Logo} />
           </TouchableWithoutFeedback>
           <TouchableHighlight
             onPress={() => {
-              console.log("image opacity");
-            }}
-          >
-            <Image
-              source={{ uri: Images.StaticRandom }}
-              style={styles.staticRandomImage}
-            />
+              console.log('image opacity');
+            }}>
+            <Image source={{ uri: Images.StaticRandom }} style={styles.staticRandomImage} />
           </TouchableHighlight>
           <TouchableNativeFeedback>
-            <View
-              style={{ width: 300, height: 70, backgroundColor: "blue" }}
-            ></View>
+            <View style={{ width: 300, height: 70, backgroundColor: 'blue' }} />
           </TouchableNativeFeedback>
           <Button
-            title={"Submit" + StatusBar.currentHeight}
-            style={[{ backgroundColor: "green" }, { color: "white" }]}
+            title={'Submit' + StatusBar.currentHeight}
+            style={[{ backgroundColor: 'green' }, { color: 'white' }]}
             onPress={() =>
-              Alert.alert("title", "press", [
-                { text: "Yes", onPress: () => "console.log('yes');" },
-                { text: "No", onPress: () => "console.log('no');" },
+              Alert.alert('title', 'press', [
+                { text: 'Yes', onPress: () => "console.log('yes');" },
+                { text: 'No', onPress: () => "console.log('no');" }
               ])
             }
           />
         </SafeAreaView>
       </View>
-      <View style={{ flex: 1, backgroundColor: "green" }}>
+      <View style={{ flex: 1, backgroundColor: 'green' }}>
         <Text>Footer</Text>
       </View>
     </View>
@@ -82,25 +84,30 @@ function Example() {
 
 const ExampleStyles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "dodgerblue",
-  },
+    backgroundColor: 'dodgerblue',
+    flex: 1
+  }
+});
+const styles = StyleSheet.create({
+  staticRandomImage: {
+    width: 300,
+    height: 200
+  }
 });
 
 export default function ApplicationStacks(props) {
   return (
     <Stack.Navigator
       screenOptions={{
-        mode: "card",
-        headerShown: false,
+        mode: 'card',
+        headerShown: false
       }}
-      initialRouteName="Onboarding"
-    >
+      initialRouteName="Onboarding">
       <Stack.Screen
         name="Onboarding"
         component={Onboarding}
         option={{
-          headerTransparent: true,
+          headerTransparent: true
         }}
       />
       <Stack.Screen name="App" component={AppStack} />
