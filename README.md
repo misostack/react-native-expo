@@ -1,5 +1,11 @@
 # React Native Expo
 
+## Getting start
+
+```bash
+yarn start
+```
+
 ## Splash Screen
 
 ```bash
@@ -18,9 +24,37 @@ yarn react-devtools
 
 - https://reactnative.dev/docs/debugging#chrome-developer-tools
 
+## Scheme
+
+```bash
+npx uri-scheme add https
+npx uri-scheme list
+```
+
 ## Debug Javascript
 
 ```bash
 expo install expo-dev-client
 adb shell input keyevent 82
+```
+
+## Screen Orientation
+
+```bash
+yarn add @react-native-community/hooks
+```
+
+```js
+import { useDeviceOrientation } from "@react-native-community/hooks";
+
+const orientation = useDeviceOrientation();
+```
+
+## Navigation
+
+- [React navigation](https://reactnavigation.org/docs/getting-started)
+
+```bash
+expo install react-native-screens react-native-safe-area-context
+yarn add @react-navigation/native @react-navigation/native-stack
 ```

@@ -2,18 +2,12 @@
 import "expo-dev-client";
 
 import React, { useCallback, useEffect, useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+
 import {
-  Text,
-  View,
   Image,
   StyleSheet,
   SafeAreaView,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  TouchableNativeFeedback,
-  TouchableHighlight,
-  Button,
-  Alert,
   Platform,
   StatusBar,
   Dimensions,
@@ -23,10 +17,8 @@ import Entypo from "@expo/vector-icons/Entypo";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { Images } from "./constants";
-import {
-  useDeviceOrientation,
-  useDimensions,
-} from "@react-native-community/hooks";
+
+import Screens from "./navigation/Screens";
 
 // cache app images
 const assetImages = [Images.Logo, Images.StaticRandom];
@@ -44,8 +36,6 @@ function cacheImages(images) {
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const [size, setSize] = useState(null);
-  const orientation = useDeviceOrientation();
 
   function _loadResourcesAsync() {
     return Promise.all([...cacheImages(assetImages)]);
@@ -68,11 +58,10 @@ export default function App() {
         setAppIsReady(true);
       }
     }
-    console.log("first time");
     prepare();
     // on android , window < screen
     // on ios , window === screen
-    setSize(Dimensions.get("screen"));
+    console.log(Dimensions.get("screen"));
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
@@ -89,43 +78,12 @@ export default function App() {
   if (!appIsReady) {
     return null;
   }
-  console.log("ready 123");
 
   return (
     <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
-      <TouchableHighlight>
-        <Text>SplashScreen Demo 23! 👋</Text>
-      </TouchableHighlight>
-      <Text>{JSON.stringify(size)}</Text>
-      <Text>{JSON.stringify(orientation)}</Text>
-      <TouchableWithoutFeedback onPress={() => console.log("image tab")}>
-        <Image source={Images.Logo} />
-      </TouchableWithoutFeedback>
-      <TouchableHighlight
-        onPress={() => {
-          console.log("image opacity");
-        }}
-      >
-        <Image
-          source={{ uri: Images.StaticRandom }}
-          style={styles.staticRandomImage}
-        />
-      </TouchableHighlight>
-      <TouchableNativeFeedback>
-        <View
-          style={{ width: 300, height: 70, backgroundColor: "blue" }}
-        ></View>
-      </TouchableNativeFeedback>
-      <Button
-        title={"Submit" + StatusBar.currentHeight}
-        style={[{ backgroundColor: "green" }, { color: "white" }]}
-        onPress={() =>
-          Alert.alert("title", "press", [
-            { text: "Yes", onPress: () => "console.log('yes');" },
-            { text: "No", onPress: () => "console.log('no');" },
-          ])
-        }
-      />
+      <NavigationContainer>
+        <Screens />
+      </NavigationContainer>
     </SafeAreaView>
   );
 }
